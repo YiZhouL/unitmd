@@ -8,9 +8,11 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     <meta charset="UTF-8">
     <title>Title</title>
     <style>{}</style>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
 </head>
 <body>
     <div id="article"><div class="article-content">{}</div></div>
+    <script>mermaid.initialize({{ startOnLoad: true }});</script>
 </body>
 </html>
 """
@@ -19,6 +21,8 @@ DEFAULT_HIGHLIGHT_CSS_PATH = os.path.join(os.path.dirname(__file__), "highlight.
 DEFAULT_THEME_CSS_PATH = os.path.join(os.path.dirname(__file__), "theme.css")
 
 EXTENSIONS = [
+    "md_mermaid",
+
     "markdown.extensions.meta",
     "markdown.extensions.tables",
     "markdown.extensions.codehilite",
@@ -75,13 +79,10 @@ class MarkdownParser:
             content = self.parse_content(input.read())
 
             if standalone:
-                if theme_css is None:
-                    theme_css = read_file_content(DEFAULT_THEME_CSS_PATH)
-                if highlight_css is None:
-                    highlight_css = read_file_content(DEFAULT_HIGHLIGHT_CSS_PATH)
+                theme_css = read_file_content(DEFAULT_THEME_CSS_PATH if theme_css is None else theme_css)
+                highlight_css = read_file_content(DEFAULT_HIGHLIGHT_CSS_PATH if highlight_css is None else highlight_css)
             else:
                 theme_css = highlight_css = ""
-
             html = HTML_TEMPLATE.format(theme_css + highlight_css, content)
 
             if output:
