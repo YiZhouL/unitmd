@@ -1,0 +1,3 @@
+include src/unitmd/*.css
+include src/test/*md
+include src/test/*.html
