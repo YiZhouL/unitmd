@@ -4,8 +4,23 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style></style>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
 </head>
 <body>
-    <div id="article"><div class="article-content"><h1 id="this-is-a-test-md">this is a test md</h1></div></div>
+    <div id="article"><div class="article-content"><h1 id="this-is-a-test-md">this is a test md</h1>
+<div class="mermaid">
+graph LR;
+信息 --摘要算法--> 摘要
+摘要 --公钥加密算法--> 签名
+信息 --发送--> 接收人
+签名 --发送--> 接收人
+接收人 --> 信息'
+信息' --摘要算法--> 摘要''
+接收人 --> 签名'
+签名' --公钥解密算法--> 摘要'
+摘要' --> 对比
+摘要'' --> 对比
+</div></div></div>
+    <script>mermaid.initialize({ startOnLoad: true });</script>
 </body>
 </html>

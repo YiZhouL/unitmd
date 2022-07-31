@@ -7,7 +7,7 @@ class TestBase(unittest.TestCase):
     parser = MarkdownParser()
 
     def test_one(self):
-        self.parser.convert_from_file("test.md", "test.html", standalone=True)
+        self.parser.convert_from_file("test.md", "test.html", standalone=False)
 
 
 if __name__ == "__main__":
