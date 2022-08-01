@@ -13,7 +13,8 @@ dependencies = [
     "Pygments >= 2.12.0",
     "pymdown-extensions",
     "md-mermaid == 0.1.0",
-    "markdown_captions"
+    "markdown_captions",
+    md4mathjax
 ]
 
 [tool.setuptools]

@@ -20,7 +20,32 @@ graph LR;
 签名' --公钥解密算法--> 摘要'
 摘要' --> 对比
 摘要'' --> 对比
-</div></div></div>
-    <script>mermaid.initialize({ startOnLoad: true });</script>
+</div>
+
+<p>this is a <span class="math">$\pi$</span></p>
+<p>
+<div class="math">$$\sum_{i=0}N\int_{a}{b}g(t,i)\text{d}t$$</div>
+</p>
+<script>mermaid.initialize({startOnLoad:true});</script></div></div>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+        MathJax = {
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex: {
+                inlineMath: [['$', '$'], ['\(', '\)']],
+                displayMath: [ ["$$","$$"] ]
+            },
+            "HTML-CSS": {
+                availableFonts: ["STIX","TeX"], //可选字体
+                showMathMenu: false //关闭右击菜单显示
+            },
+            options: {
+                processHtmlClass: 'math',
+                ignoreHtmlClass: '.*'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.bootcss.com/mathjax/3.0.5/es5/tex-mml-chtml.js"></script>
 </body>
 </html>

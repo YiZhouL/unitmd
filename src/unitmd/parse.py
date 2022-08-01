@@ -12,7 +12,26 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 </head>
 <body>
     <div id="article"><div class="article-content">{}</div></div>
-    <script>mermaid.initialize({{ startOnLoad: true }});</script>
+    <script>
+        mermaid.initialize({{ startOnLoad: true }});
+        MathJax = {{
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex: {{
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [ ["$$","$$"] ]
+            }},
+            "HTML-CSS": {{
+                availableFonts: ["STIX","TeX"], //可选字体
+                showMathMenu: false //关闭右击菜单显示
+            }},
+            options: {{
+                processHtmlClass: 'math',
+                ignoreHtmlClass: '.*'
+            }}
+        }};
+    </script>
+    <script id="MathJax-script" async src="https://cdn.bootcss.com/mathjax/3.0.5/es5/tex-mml-chtml.js"></script>
 </body>
 </html>
 """
@@ -22,6 +41,8 @@ DEFAULT_THEME_CSS_PATH = os.path.join(os.path.dirname(__file__), "theme.css")
 
 EXTENSIONS = [
     "md_mermaid",
+
+    "md4mathjax",
 
     "markdown.extensions.meta",
     "markdown.extensions.tables",
