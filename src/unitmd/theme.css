@@ -277,8 +277,9 @@
 
 .article-content ol > li,
 .article-content ul > li {
-    color: #db4d52;
-    font-weight: bold;
+    font-weight: normal;
+    /*color: #db4d52;
+    font-weight: bold;*/
 }
 
 .article-content ol > li > *,
