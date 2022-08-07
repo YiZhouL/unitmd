@@ -415,3 +415,7 @@
 .article-content figure img {
     vertical-align: center;
 }
+
+.article-content .mermaid {
+    text-align: center;
+}
