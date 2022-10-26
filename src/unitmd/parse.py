@@ -51,7 +51,7 @@ EXTENSIONS = [
     "markdown.extensions.codehilite",
     "markdown.extensions.toc",
     "markdown.extensions.footnotes",
-    "markdown.extensions.fenced_code",
+    # "markdown.extensions.fenced_code",
     "markdown_captions",
 
     "pymdownx.superfences",
