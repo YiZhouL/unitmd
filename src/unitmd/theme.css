@@ -359,6 +359,7 @@
 .article-content pre {
     display: flow-root;
     position: relative;
+    white-space: pre-wrap;
 }
 
 .article-content pre code {
