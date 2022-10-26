@@ -2,6 +2,9 @@ import codecs
 import os
 import markdown
 
+from .exts.md_mermaid import MermaidExtension
+from .exts.md4mathjax import Md4MathjaxExtension
+
 HTML_TEMPLATE = """<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,9 +43,8 @@ DEFAULT_HIGHLIGHT_CSS_PATH = os.path.join(os.path.dirname(__file__), "highlight.
 DEFAULT_THEME_CSS_PATH = os.path.join(os.path.dirname(__file__), "theme.css")
 
 EXTENSIONS = [
-    "md_mermaid",
-
-    "md4mathjax",
+    MermaidExtension(),
+    Md4MathjaxExtension(),
 
     "markdown.extensions.meta",
     "markdown.extensions.tables",
@@ -89,42 +91,46 @@ class MarkdownParser:
             extension_configs = {}
         extensions.update(EXTENSIONS)
         extension_configs.update(EXTENSIONS_CONFIG)
-        self._markdown = markdown.Markdown(extensions=extensions, extension_configs=extension_configs,
-                                           output_format="html5")
+        self._markdown = markdown.Markdown(extensions=extensions,
+                                           extension_configs=extension_configs,
+                                           output_format="html"
+                                           )
 
     def parse_content(self, text):
         return self._markdown.convert(text)
 
-    def convert_from_stream_to_stream(self, input, theme_css=None, highlight_css=None, output=None, standalone=True):
+    def convert_from_stream_to_stream(self, input_, theme_css=None, highlight_css=None, output=None, standalone=True):
         try:
-            content = self.parse_content(input.read())
+            content = self.parse_content(input_.read())
 
             if standalone:
                 theme_css = read_file_content(DEFAULT_THEME_CSS_PATH if theme_css is None else theme_css)
                 highlight_css = read_file_content(DEFAULT_HIGHLIGHT_CSS_PATH if highlight_css is None else highlight_css)
             else:
                 theme_css = highlight_css = ""
-            html = HTML_TEMPLATE.format(theme_css + highlight_css, content)
+            html = HTML_TEMPLATE.format(highlight_css + theme_css, content)
 
             if output:
                 output.write(html)
             return html
         finally:
-            input.close()
+            input_.close()
             if output:
                 output.close()
 
-    def convert_from_file(self, input, output, theme_css=DEFAULT_THEME_CSS_PATH,
-                          highlight_css=DEFAULT_HIGHLIGHT_CSS_PATH, standalone=True):
-        if isinstance(input, str) and isinstance(output, str):
-            if os.path.exists(input):
-                input_file = codecs.open(input, mode="r", encoding="utf-8")
+    def convert_from_file(self, input_, output,
+                          theme_css=DEFAULT_THEME_CSS_PATH,
+                          highlight_css=DEFAULT_HIGHLIGHT_CSS_PATH,
+                          standalone=True):
+        if isinstance(input_, str) and isinstance(output, str):
+            if os.path.exists(input_):
+                input_file = codecs.open(input_, mode="r", encoding="utf-8")
             else:
-                input_file = codecs.getreader("utf-8")(input)
+                input_file = codecs.getreader("utf-8")(input_)
             output_file = codecs.open(output, mode="w", encoding="utf-8")
             self.convert_from_stream_to_stream(input_file, theme_css, highlight_css, standalone=standalone,
                                                output=output_file)
         else:
             raise ValueError(
-                "input/output need str, {} unexpected".format(type(input))
+                "input/output need str, {} unexpected".format(type(input_))
             )

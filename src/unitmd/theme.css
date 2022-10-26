@@ -367,7 +367,7 @@
     border-radius: 2px;
     font-family: 'Source Code Pro';
     font-size: 0.92rem;
-    color: #ff3502;
+    color: #33AAee;
     margin-left: 3px;
     margin-right: 3px;
     margin-bottom: 3px;
@@ -376,8 +376,8 @@
 .article-content code {
     border-radius: 2px;
     font-family: 'Source Code Pro';
-    font-size: 0.92rem;
-    color: #ff3502;
+    font-size: 1.1rem;
+    color: #1211ee;
     padding-bottom: 2px;
 }
 
@@ -419,4 +419,8 @@
 
 .article-content .mermaid {
     text-align: center;
+}
+
+.article-content span.linenos {
+    color: #EEBB32;
 }
